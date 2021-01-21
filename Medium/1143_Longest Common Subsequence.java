@@ -14,7 +14,6 @@ Input: text1 = "abcde", text2 = "ace"
 Output: 3  
 Explanation: The longest common subsequence is "ace" and its length is 3.
 
-
 Example 2:
 
 Input: text1 = "abc", text2 = "abc"
@@ -45,16 +44,15 @@ Solution 1 --- DP
 
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
-        int s1Len = text1.length(), s2Len = text2.length();
-        int[][] dp = new int[s1Len + 1][s2Len + 1];
-        for(int i = 1; i <= s1Len; i++){
-            for(int j = 1; j <= s2Len; j++){
-                if(text1.charAt(i - 1) == text2.charAt(j - 1)) dp[i][j] = 1 + dp[i - 1][j - 1];
-                else dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
+        int t1len = text1.length(), t2len = text2.length();
+        int[][] map = new int[t1len + 1][t2len + 1];
+        for(int i = 1; i <= t1len; i++ ){
+            for(int j = 1; j <= t2len; j++){
+                if(text1.charAt(i - 1) == text2.charAt(j - 1)) map[i][j] = map[i - 1][j - 1] + 1;
+                else map[i][j] = Math.max(map[i - 1][j], map[i][j - 1]);
             }
         }
-        return dp[s1Len][s2Len];
+        return map[t1len][t2len];
     }
 }
-
 
